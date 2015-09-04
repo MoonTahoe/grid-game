@@ -1,0 +1,24 @@
+{
+  "name": "grid-game",
+  "version": "0.0.0",
+  "description": "Learn Functional Programming and ES6 by building the tools to create 2048 styled games that use different grid sizes and different multiples.",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jenkins-mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MoonTahoe/grid-game.git"
+  },
+  "keywords": [
+    "2048",
+    "larger",
+    "grid"
+  ],
+  "author": "Alex Banks <alex@moonhighway.com> (http://www.moonhighway.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MoonTahoe/grid-game/issues"
+  },
+  "homepage": "https://github.com/MoonTahoe/grid-game#readme"
+}
