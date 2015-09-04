@@ -1,6 +1,6 @@
 import EventEmitter from 'events';
 import tools from './tools';
-var { generateHandler, generateAddHandler } = tools;
+var { generateHandler, generateAddHandler, createMatrix } = tools;
 
 class Game extends EventEmitter {
 
@@ -15,11 +15,12 @@ class Game extends EventEmitter {
         this.up = this.up.bind(this);
         this.down = this.down.bind(this);
 
-        // Setting up immutable grid
+        // Game multiple
         this.multiple = multiple;
         this.gridSize = gridSize;
-        this.createGrid(gridSize, multiple);
 
+        // Cretting an acessor for grid
+        this._grid = [];
         Object.defineProperty(this, 'grid', {
             get() {
                 return this._grid[this._grid.length - 1];
@@ -29,9 +30,12 @@ class Game extends EventEmitter {
             }
         });
 
-        // Adding First Two Tiles to Grid
-        this.add(this.grid);
-        this.add(this.grid);
+        // Generating teh Game Board
+        this.grid = createMatrix(this.gridSize, this.multiple);
+
+        // Add two tiles to the game board
+        this.add();
+        this.add();
 
         // Emitting a start Event
         this.emit('start', this.grid);
@@ -71,7 +75,7 @@ class Game extends EventEmitter {
 
 }
 
-Game.prototype.addTile = generateAddHandler(1 / 2);
+Game.prototype.addTile = generateAddHandler(0.5, Game.multiple);
 Game.prototype.moveLeft = generateHandler('left');
 Game.prototype.moveRight = generateHandler('right');
 Game.prototype.moveUp = generateHandler('up');

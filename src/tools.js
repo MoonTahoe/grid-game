@@ -10,6 +10,10 @@ class Tools {
         return (Math.random() >= rate) ? multiple : multiple * 2;
     }
 
+    createMatrix(rows, cols) {
+        return Array.apply(null, Array(rows)).map(x => Array.apply(null, Array(cols)).map(y => 0));
+    }
+
     availableSeats(matrix = []) {
         var emptySeats = [];
         matrix.forEach((row, i) => row.forEach((cell, j) => (cell === 0) ? emptySeats.push(i + ':' + j) : null));
