@@ -22,6 +22,6 @@ These are exercise files for ES6/Functional programming courses.
        clearInterval(upInterval);
    });
    
-   var upInterval = setInterval(() => grid.up(), 1000);
+   var upInterval = setInterval(() => niceGame.up(), 1000);
    
 ```
