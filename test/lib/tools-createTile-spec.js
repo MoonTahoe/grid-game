@@ -1,58 +1,38 @@
 import tools from '../../lib/tools';
 import chai from 'chai';
 var { expect } = chai;
-var { createTile } = tools;
+var { availableSeats } = tools;
 
-describe('Tools : createTile(ratio, multiple)', function () {
+describe('Tools : availableSeats(matrix)', function () {
 
-    var results = [];
-
-    it('Creates either a 2 or 4 by default', () => expect(tools.createTile()).to.match(/2|4/));
-    it('Creates a 3 or 6 for multiples of 3', () => expect(tools.createTile(0.5, 3)).to.match(/3|6/));
-
-    describe('2 to 4 50% Ratio', function () {
-
-        beforeEach(function () {
-            for (let i = 1; i <= 100; i++) {
-                results.push(tools.createTile());
-            }
-        });
-
-        afterEach(function () {
-            results = [];
-        });
-
-        it('A ratio of 50% creates some 2s', () => expect(results.some(n => n === 2)).to.equal(true));
-        it('A ratio of 50% creates some 4s', () => expect(results.some(n => n === 4)).to.equal(true));
-
+    it('Locates correct seats for empty matrix', () => {
+        let results = availableSeats([
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0],
+            [0, 0, 0, 0]
+        ]);
+        expect(results).to.deep.equal(['0:0', '0:1', '0:2', '0:3', '1:0', '1:1', '1:2', '1:3', '2:0', '2:1', '2:2', '2:3', '3:0', '3:1', '3:2', '3:3']);
     });
 
-    describe('0% Ratio', function () {
-
-        beforeEach(function () {
-            for (let i = 1; i <= 100; i++) {
-                results.push(createTile(0));
-            }
-        });
-
-        it('A ratio of 0% always generates 2s.', () => expect(results.every(n => n === 2)).to.equal(true));
-
+    it('Locates correct seats for partially full matrix', () => {
+        let results = availableSeats([
+            [2, 2, 0, 0],
+            [2, 0, 4, 0],
+            [8, 4, 0, 8],
+            [0, 8, 0, 4]
+        ]);
+        expect(results).to.deep.equal(['0:2', '0:3', '1:1', '1:3', '2:2', '3:0', '3:2']);
     });
 
-    describe('100% Ratio', function () {
-
-        beforeEach(function () {
-            results = [];
-            for (let i = 1; i <= 100; i++) {
-                results.push(createTile(1));
-            }
-        });
-
-        it('A ratio of 0% always generates 2s.', () => expect(results.every(n => n === 4)).to.equal(true));
-
+    it('Returns an empty array when there are no available seats', () => {
+        let results = availableSeats([
+            [2, 2, 2, 2],
+            [2, 4, 4, 2],
+            [8, 4, 8, 8],
+            [4, 8, 4, 4]
+        ]);
+        expect(results).to.deep.equal([]);
     });
-
 
 });
-
-
