@@ -4,8 +4,11 @@
   "description": "Learn Functional Programming and ES6 by building the tools to create 2048 styled games that use different grid sizes and different multiples.",
   "main": "index.js",
   "scripts": {
-    "pretest": "node_modules/.bin/eslint lib/*.js test/**/*.js",
-    "test": "./node_modules/.bin/jenkins-mocha --compilers js:mocha-babel test/lib/*.js"
+    "compile": "./node_modules/.bin/babel -d lib/ src/",
+    "pretest": "./node_modules/.bin/eslint lib/*.js test/**/*.js",
+    "test": "./node_modules/.bin/jenkins-mocha --compilers js:mocha-babel test/lib/*.js",
+    "posttest": "npm run compile",
+    "prepublish": "npm run compile"
   },
   "repository": {
     "type": "git",

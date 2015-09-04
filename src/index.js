@@ -1,5 +1,5 @@
 import EventEmitter from 'events'
-import tools from './lib/tools'
+import tools from './tools'
 var { generateHandler, generateAddHandler, ImmutableGrid } = tools;
 
 class Game extends EventEmitter {
@@ -34,12 +34,6 @@ class Game extends EventEmitter {
         this.emit('start', this.grid);
     }
 
-    addTile = generateAddHandler(1 / 2);
-    moveLeft = generateHandler('left');
-    moveRight = generateHandler('right');
-    moveUp = generateHandler('up');
-    moveDown = generateHandler('down');
-
     emitMove(direction) {
         this.emit('move', {
             direction: direction,
@@ -73,5 +67,11 @@ class Game extends EventEmitter {
     }
 
 }
+
+Game.prototype.addTile = generateAddHandler(1 / 2);
+Game.prototype.moveLeft = generateHandler('left');
+Game.prototype.moveRight = generateHandler('right');
+Game.prototype.moveUp = generateHandler('up');
+Game.prototype.moveDown = generateHandler('down');
 
 module.exports = Game;
