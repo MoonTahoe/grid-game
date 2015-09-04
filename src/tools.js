@@ -10,14 +10,26 @@ class Tools {
         return (Math.random() >= rate) ? multiple : multiple * 2;
     }
 
-    availableSeats (matrix = []) {
+    availableSeats(matrix = []) {
         var emptySeats = [];
         matrix.forEach((row, i) => row.forEach((cell, j) => (cell === 0) ? emptySeats.push(i + ':' + j) : null));
         return emptySeats;
     }
 
-    hasAvailableSeats (matrix = []) {
+    hasAvailableSeats(matrix = []) {
         return this.availableSeats(matrix).length > 0;
+    }
+
+    reverse(arr) {
+        return arr.map(x => x).reverse();
+    }
+
+    zeroFill(arr, end) {
+        return Array.apply(null, Array(end)).map((x, i) => (arr[i]) ? arr[i] : 0);
+    }
+
+    zeroRemove(row) {
+        return row.filter(cell => cell);
     }
 
 }

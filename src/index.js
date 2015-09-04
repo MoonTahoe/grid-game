@@ -1,6 +1,6 @@
-import EventEmitter from 'events'
-import tools from './tools'
-var { generateHandler, generateAddHandler, ImmutableGrid } = tools;
+import EventEmitter from 'events';
+import tools from './tools';
+var { generateHandler, generateAddHandler } = tools;
 
 class Game extends EventEmitter {
 
@@ -16,7 +16,10 @@ class Game extends EventEmitter {
         this.down = this.down.bind(this);
 
         // Setting up immutable grid
-        this._grid = [];
+        this.multiple = multiple;
+        this.gridSize = gridSize;
+        this.createGrid(gridSize, multiple);
+
         Object.defineProperty(this, 'grid', {
             get() {
                 return this._grid[this._grid.length - 1];
