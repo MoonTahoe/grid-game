@@ -4,22 +4,8 @@ var tools = {
         return (Math.random() >= rate) ? multiple : multiple * 2;
     },
 
-    createMatrix(rows=4, cols=4) {
+    createMatrix(rows = 4, cols = 4) {
         return Array.apply(null, Array(rows)).map(x => Array.apply(null, Array(cols)).map(y => 0));
-    },
-
-    availableSeats(matrix = []) {
-        var emptySeats = [];
-        matrix.forEach((row, i) => row.forEach((cell, j) => (cell === 0) ? emptySeats.push(i + ':' + j) : null));
-        return emptySeats;
-    },
-
-    hasAvailableSeats(matrix = []) {
-        return tools.availableSeats(matrix).length > 0;
-    },
-
-    reverse(arr) {
-        return arr.map(x => x).reverse();
     },
 
     zeroFill(arr, end) {
@@ -32,6 +18,22 @@ var tools = {
 
     pluck(i, matrix) {
         return matrix.map(x => x[i]);
+    },
+
+    flatten(arr = []) {
+        return (arr.length) ? arr.reduce((p, n) => p.concat(n)) : arr;
+    },
+
+    availableSeats(matrix = []) {
+        return tools.zeroRemove(tools.flatten(matrix.map((row, i) => row.map((cell, j) => (cell === 0) ? i + ':' + j : 0))));
+    },
+
+    hasAvailableSeats(matrix = []) {
+        return tools.availableSeats(matrix).length > 0;
+    },
+
+    reverse(arr) {
+        return arr.map(x => x).reverse();
     },
 
     rotate(matrix) {
