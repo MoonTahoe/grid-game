@@ -14,7 +14,7 @@ describe('Tools : generateMatrix()', function () {
     });
 
     it('generates a 4x4 game board', () => {
-        expect(createMatrix(4, 4)).to.deep.equal([
+        expect(createMatrix()).to.deep.equal([
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0],

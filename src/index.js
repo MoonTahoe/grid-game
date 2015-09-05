@@ -1,6 +1,8 @@
+/*
 import EventEmitter from 'events';
 import tools from './tools';
-var { generateHandler, generateAddHandler, createMatrix } = tools;
+
+var { generateHandler, generateAddHandler, generateBoard } = tools;
 
 class Game extends EventEmitter {
 
@@ -31,10 +33,8 @@ class Game extends EventEmitter {
         });
 
         // Generating teh Game Board
-        this.grid = createMatrix(this.gridSize, this.multiple);
+        this.grid = this.generateMatrix(this.gridSize, this.multiple);
 
-        // Add two tiles to the game board
-        this.add();
         this.add();
 
         // Emitting a start Event
@@ -82,3 +82,4 @@ Game.prototype.moveUp = generateHandler('up');
 Game.prototype.moveDown = generateHandler('down');
 
 module.exports = Game;
+ */
