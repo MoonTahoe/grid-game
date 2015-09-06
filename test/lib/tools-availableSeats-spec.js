@@ -1,7 +1,7 @@
 import tools from '../../src/tools';
 import chai from 'chai';
 var { expect } = chai;
-var { availableSeats, hasAvailableSeats } = tools;
+var { availableSeats, hasAvailableSeats, zeroRemove, flatten } = tools;
 
 describe('Tools : availableSeats(matrix)', function () {
 
@@ -11,7 +11,7 @@ describe('Tools : availableSeats(matrix)', function () {
             [0, 0, 0, 0],
             [0, 0, 0, 0],
             [0, 0, 0, 0]
-        ]);
+        ], zeroRemove, flatten);
         expect(results).to.deep.equal(['0:0', '0:1', '0:2', '0:3', '1:0', '1:1', '1:2', '1:3', '2:0', '2:1', '2:2', '2:3', '3:0', '3:1', '3:2', '3:3']);
     });
 
@@ -42,7 +42,7 @@ describe('Tools : availableSeats(matrix)', function () {
     describe('hasAvailableSeats(matrix)', function () {
 
         it('returns false when a matrix is not sent', () => {
-            expect(hasAvailableSeats()).to.equal(false);
+            expect(hasAvailableSeats(), availableSeats).to.equal(false);
         });
 
         it('returns true when there are seats available', () => {
@@ -51,7 +51,7 @@ describe('Tools : availableSeats(matrix)', function () {
                 [2, 4, 8, 16],
                 [2, 4, 0, 16],
                 [2, 4, 8, 16]
-            ]);
+            ], availableSeats);
             expect(results).to.equal(true);
         });
 

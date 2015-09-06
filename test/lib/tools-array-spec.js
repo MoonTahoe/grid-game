@@ -6,18 +6,19 @@ var { expect } = chai;
 describe('Tools : array', function () {
 
     describe('flatten(array)', () => {
-       it('should return a single flat array', () => {
-           var results = flatten([
-               [1,2,3],
-               [4,5,6],
-               [7,8,9,0]
-           ]);
-           expect(results).to.deep.equal([1,2,3,4,5,6,7,8,9,0]);
-       });
+        it('should return a single flat array', () => {
+            var results = flatten([
+                [1, 2, 3],
+                [4, 5, 6],
+                [7, 8, 9, 0]
+            ]);
+            expect(results).to.deep.equal([1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
+        });
+        it('should return an empty array when no arguments are sent', () => expect(flatten()).to.deep.equal([]));
     });
 
     describe('reverse(array)', () => {
-        it('Should reverse the order of an array', () => expect( reverse([1,2,3,4]) ).to.deep.equal([4,3,2,1]));
+        it('Should reverse the order of an array', () => expect(reverse([1, 2, 3, 4])).to.deep.equal([4, 3, 2, 1]));
     });
 
     describe('zeroFill(array)', () => {
@@ -28,10 +29,10 @@ describe('Tools : array', function () {
     });
 
     describe('zeroRemove(array)', () => {
-        it('removes all 0s', () => expect(zeroRemove([0,0,0,0])).to.deep.equal([]));
-        it('removes start 0s', () => expect(zeroRemove([0,0,2,4])).to.deep.equal([2,4]));
-        it('removes end 0s', () => expect(zeroRemove([8,16,0,0])).to.deep.equal([8,16]));
-        it('does not remove other numbers', () => expect(zeroRemove([2,4,2,4])).to.deep.equal([2,4,2,4]));
+        it('removes all 0s', () => expect(zeroRemove([0, 0, 0, 0])).to.deep.equal([]));
+        it('removes start 0s', () => expect(zeroRemove([0, 0, 2, 4])).to.deep.equal([2, 4]));
+        it('removes end 0s', () => expect(zeroRemove([8, 16, 0, 0])).to.deep.equal([8, 16]));
+        it('does not remove other numbers', () => expect(zeroRemove([2, 4, 2, 4])).to.deep.equal([2, 4, 2, 4]));
     });
 
 });

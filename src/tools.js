@@ -24,24 +24,36 @@ var tools = {
         return (arr.length) ? arr.reduce((p, n) => p.concat(n)) : arr;
     },
 
-    availableSeats(matrix = []) {
-        return tools.zeroRemove(tools.flatten(matrix.map((row, i) => row.map((cell, j) => (cell === 0) ? i + ':' + j : 0))));
+    availableSeats(matrix = [], zeroRemove = tools.zeroRemove, flatten = tools.flatten) {
+        return zeroRemove(flatten(matrix.map((row, i) => row.map((cell, j) => (cell === 0) ? i + ':' + j : 0))));
     },
 
-    hasAvailableSeats(matrix = []) {
-        return tools.availableSeats(matrix).length > 0;
+    hasAvailableSeats(matrix = [], availableSeats = tools.availableSeats) {
+        return availableSeats(matrix).length > 0;
     },
 
     reverse(arr) {
         return arr.map(x => x).reverse();
     },
 
-    rotate(matrix) {
-        return matrix.map((row, i, arr) => tools.reverse(tools.pluck(i, arr)));
+    rotate(matrix, pluck = tools.pluck) {
+        return matrix.map((row, i, arr) => tools.reverse(pluck(i, arr)));
     },
 
-    rotateReturn (matrix) {
-        return tools.reverse(matrix.map((row, i, arr) => tools.pluck(i, arr)));
+    rotateReturn (matrix, reverse = tools.reverse, pluck = tools.pluck) {
+        return reverse(matrix.map((row, i, arr) => pluck(i, arr)));
+    },
+
+    addItems(current, next) {
+        return (current === next) ? current * 2 : current;
+    },
+
+    zeroDiff(oldArray, newArray) {
+        return newArray.map((item, i, arr) => (oldArray[i - 1] === newArray[i - 1]) ? item : 0);
+    },
+
+    addNeighbors(row, zeroRemove = tools.zeroRemove, addItems = tools.addItems, zeroDiff = tools.zeroDiff) {
+        return zeroRemove(zeroDiff(row, zeroRemove(row).map((cell, i, arr) => addItems(cell, arr[i + 1]))));
     }
 
 };
