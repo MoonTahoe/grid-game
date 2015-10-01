@@ -20,8 +20,12 @@ var tools = {
         return matrix.map(x => x[i]);
     },
 
+    reverse(arr) {
+        return arr.map(x => x).reverse();
+    },
+
     flatten(arr = []) {
-        return (arr.length) ? arr.reduce((p, n) => p.concat(n)) : arr;
+        return (arr.length) ? arr.reduce((p, n, i) => [...p, ...n]) : arr;
     },
 
     availableSeats(matrix = [], zeroRemove = tools.zeroRemove, flatten = tools.flatten) {
@@ -30,10 +34,6 @@ var tools = {
 
     hasAvailableSeats(matrix = [], availableSeats = tools.availableSeats) {
         return availableSeats(matrix).length > 0;
-    },
-
-    reverse(arr) {
-        return arr.map(x => x).reverse();
     },
 
     rotate(matrix, pluck = tools.pluck) {
@@ -52,8 +52,44 @@ var tools = {
         return newArray.map((item, i, arr) => (oldArray[i - 1] === newArray[i - 1]) ? item : 0);
     },
 
-    addNeighbors(row, zeroRemove = tools.zeroRemove, addItems = tools.addItems, zeroDiff = tools.zeroDiff) {
-        return zeroRemove(zeroDiff(row, zeroRemove(row).map((cell, i, arr) => addItems(cell, arr[i + 1]))));
+    collapseRow(row, zeroFill = tools.zeroFill, addNeighbors = tools.addNeighbors) {
+        return zeroFill(addNeighbors(row), row.length);
+    },
+
+    collapseLeft(collapse = tools.collapseRow) {
+        return (row) => collapse(row);
+    },
+
+    collapseRight(collapse = tools.collapseRow, reverse = tools.reverse) {
+        return (row) => reverse(collapse(reverse(row)));
+    },
+
+    setCollapseFunction(direction = 'left', collapseRight = tools.collapseRight, collapseLeft = tools.collapseLeft, collapseRow = tools.collapseRow) {
+        return (direction.match(/right|up/)) ? collapseRight(collapseRow) : collapseLeft(collapseRow);
+    },
+
+    rotateAndCollapse(matrix, collapseFunction, rotateReturn = tools.rotateReturn, rotate = tools.rotate) {
+        return rotateReturn(rotate(matrix).map(collapseFunction));
+    },
+
+    addNeighbors(row, zeroRemove = tools.zeroRemove) {
+        return zeroRemove(zeroRemove(row).map(function (cell, i, arr) {
+            if (cell === arr[i + 1]) {
+                arr[i + 1] = 0;
+                return cell * 2;
+            } else if (cell) {
+                return cell;
+            } else {
+                return 0;
+            }
+        }));
+    },
+
+    createHandler(direction = 'left', setCollapseFunction = tools.setCollapseFunction, rotateAndCollapse = tools.rotateAndCollapse) {
+        return (matrix = []) => {
+            let collapsed = (direction.match(/right|left/)) ? matrix.map(setCollapseFunction(direction)) : rotateAndCollapse(matrix, setCollapseFunction(direction));
+            return (matrix.toString() !== collapsed.toString()) ? collapsed : false;
+        };
     }
 
 };
