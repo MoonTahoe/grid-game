@@ -1,8 +1,7 @@
-/*
 import EventEmitter from 'events';
 import tools from './tools';
 
-var { generateHandler, generateAddHandler, generateBoard } = tools;
+var { createHandler, generateAddHandler, generateBoard } = tools;
 
 class Game extends EventEmitter {
 
@@ -82,4 +81,3 @@ Game.prototype.moveUp = generateHandler('up');
 Game.prototype.moveDown = generateHandler('down');
 
 module.exports = Game;
- */
