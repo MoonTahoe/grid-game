@@ -25,3 +25,13 @@ These are exercise files for ES6/Functional programming courses.
    var upInterval = setInterval(() => niceGame.up(), 1000);
    
 ```
+
+### Remaining
+
+* generateAddHandler
+* generateBoard
+* Tests for the Game Object
+* Sample Working Game
+* Travis CI Delivery pipeline for publishing
+* Finish off Readme
+* publish
