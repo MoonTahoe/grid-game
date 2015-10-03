@@ -28,8 +28,11 @@ These are exercise files for ES6/Functional programming courses.
 
 ### Under Construction
 
-1. Refactor Game Object, promises, better code
-2. Write Tests for Game Object
-3. Remove Sample and npm run configuration for sample
-4. Finalize Readme.md 
-5. Fix issue caused by __npm run compile__ on node v4.0 __**Segmentation fault: 11**__
+* Game class needs Tests
+* SHOULD NOT ADD a Tile when you can no longer move in a direction
+    * Technically a bunch of lefts should not end the game
+* Game is working but is funkey
+* Functions should return the same type not array or false
+* Instead of returning false consider using promises
+* Reduce Redundant Code Found in Game class
+* Cannot rotate rectangle grids, array.map() is making them all squares

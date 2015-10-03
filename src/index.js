@@ -1,20 +1,37 @@
 //
 //  TODO: Refactor this code, Test this code
 //
-//     - Game is working but is funkey
-//     - Functions should return the same type not array or false
-//     - Instead of returning false consider using promises
+     - Game class needs Tests
+     - SHOULD NOT ADD a Tile when you can no longer move in a direction
+          - Technically a bunch of lefts should not end the game
+     - Game is working but is funkey
+     - Functions should return the same type not array or false
+     - Instead of returning false consider using promises
+     - Reduce Redundant Code Found in Game class
+     - Cannot rotate rectangle grids, array.map() is making them all squares
 //
+
 
 import EventEmitter from 'events';
 import tools from './tools';
 
 var { createHandler, createAddHandler, createMatrix } = tools;
 
-class Game extends EventEmitter {
+class GameFunctions extends EventEmitter {
+    constructor(rate, multiple) {
+        super();
+        this.addTile = createAddHandler(rate, multiple);
+        this.moveLeft = createHandler('left');
+        this.moveRight = createHandler('right');
+        this.moveUp = createHandler('up');
+        this.moveDown = createHandler('down');
+    }
+}
+
+class Game extends GameFunctions {
 
     constructor(gridSize = [4, 4], multiple = 2) {
-        super();
+        super(0.5, multiple);
 
         // Binding Methods
         this.emitMove = this.emitMove.bind(this);
@@ -55,7 +72,7 @@ class Game extends EventEmitter {
         this.add().add();
 
         // Emitting a start Event
-        this.emit('start', this.grid);
+        this.emit('start', {grid: this.grid});
     }
 
     emitMove(direction) {
@@ -73,8 +90,8 @@ class Game extends EventEmitter {
         //     - consider using promises success | fail
         //
 
-        if(!this.addTile(this.grid)) {
-           this.emit('end', { moves: this._grid.length });
+        if (!this.addTile(this.grid)) {
+            this.emit('end', {moves: this._grid.length});
         } else {
             this.emit('newTile', this.grid);
             success();
@@ -136,10 +153,5 @@ class Game extends EventEmitter {
 
 }
 
-Game.prototype.addTile = createAddHandler(0.5, Game.multiple);
-Game.prototype.moveLeft = createHandler('left');
-Game.prototype.moveRight = createHandler('right');
-Game.prototype.moveUp = createHandler('up');
-Game.prototype.moveDown = createHandler('down');
 
 module.exports = Game;
