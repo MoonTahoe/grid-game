@@ -1,0 +1,8 @@
+deploy:
+  provider: npm
+  email: alex@moonhighway.com
+  api_key:
+    secure: Lk4uupKIx0i93Mr2DersXCRig1d8h6Gb0GVEH3ABfexGJPYAJhVPFjg7L1k5odoju3Do0igy05mL9IwM8NvotZGwoak2Gq9bgCnLo2cEHv7kiZxwdygM+QlkCNxZYDIzD/+M4gL/cKrZPpVSomS3dpoa+6HUj4dcp+chktftV4r3Mj+5Grl1mXgB0cH3kONYMtYpHd0EyS0v1LCT6G1FILvOuCpBMyatOjNXQ1mzZ18hX17sNRUDWMVpFM/YH6DLpu8zYY541vtK6pDTvpyZXoLQQh+PaXrLS4VM8vQCi4Iyb3m8J2EZm8q9bNY5e0zWXZ+CeXxk/25Mx391Eydw2Du/EA972+cM1eLOuGRyFCJSbBYL9pGPYBBdDR2O8N4j1mdkd6OMcY+2unuLZ7JJiKi/tgodGTM4zLyBk5lCi86PRvHd6N/pQ8W8EmN6PhjXYZakoYtJMhbKDZZO180DZRcau1TKB4Pf1eDdkxbkLEReObWsVbOYLMBiU6HcVCJ5ReDx7ypBx6dnNcEc9JPEGjHunBtT/gHJWaw5m1ZuGYne5576I2NkqbqTws3xFlC0Pew22LGLchZNxzL5wnA0wyqUob9puvP7vo/VH01tHvbFRU9ot3sK8OLiWU4SuKMaI4ZbOGXroXuUoa5wNWYfvWW+pezvxCbqWOB++80Zj8k=
+  on:
+    tags: true
+    repo: MoonTahoe/grid-game
