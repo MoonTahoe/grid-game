@@ -1,14 +1,14 @@
 //
 //  TODO: Refactor this code, Test this code
 //
-     - Game class needs Tests
-     - SHOULD NOT ADD a Tile when you can no longer move in a direction
-          - Technically a bunch of lefts should not end the game
-     - Game is working but is funkey
-     - Functions should return the same type not array or false
-     - Instead of returning false consider using promises
-     - Reduce Redundant Code Found in Game class
-     - Cannot rotate rectangle grids, array.map() is making them all squares
+//     - Game class needs Tests
+//     - SHOULD NOT ADD a Tile when you can no longer move in a direction
+//          - Technically a bunch of lefts should not end the game
+//     - Game is working but is funkey
+//     - Functions should return the same type not array or false
+//     - Instead of returning false consider using promises
+//     - Reduce Redundant Code Found in Game class
+//     - Cannot rotate rectangle grids, array.map() is making them all squares
 //
 
 
