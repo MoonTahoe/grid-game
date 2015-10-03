@@ -1,11 +1,19 @@
+//
+//  TODO: Refactor this code, Test this code
+//
+//     - Game is working but is funkey
+//     - Functions should return the same type not array or false
+//     - Instead of returning false consider using promises
+//
+
 import EventEmitter from 'events';
 import tools from './tools';
 
-var { createHandler, generateAddHandler, generateBoard } = tools;
+var { createHandler, createAddHandler, createMatrix } = tools;
 
 class Game extends EventEmitter {
 
-    constructor(gridSize, multiple) {
+    constructor(gridSize = [4, 4], multiple = 2) {
         super();
 
         // Binding Methods
@@ -15,6 +23,15 @@ class Game extends EventEmitter {
         this.right = this.right.bind(this);
         this.up = this.up.bind(this);
         this.down = this.down.bind(this);
+
+        // Checking Paramaters
+        if (!Array.isArray(gridSize) || !gridSize.every(x=>typeof x === 'number')) {
+            throw new Error('Grid Size needs to be in array of integers [rows,cols]')
+        }
+
+        if (typeof multiple !== 'number' || multiple < 2) {
+            throw new Error('Game multiple must be a number greater than 1');
+        }
 
         // Game multiple
         this.multiple = multiple;
@@ -31,10 +48,11 @@ class Game extends EventEmitter {
             }
         });
 
-        // Generating teh Game Board
-        this.grid = this.generateMatrix(this.gridSize, this.multiple);
+        // Generating the Game Board
+        this.grid = createMatrix(this.gridSize);
 
-        this.add();
+        // Add Two Tiles to get the game started
+        this.add().add();
 
         // Emitting a start Event
         this.emit('start', this.grid);
@@ -45,39 +63,83 @@ class Game extends EventEmitter {
             direction: direction,
             grid: this.grid
         });
+        return this;
     }
 
-    add() {
-        this.addTile(this.grid);
-        this.emit('newTile', this.grid);
+    add(success = x => false) {
+
+        //
+        //  TODO: Fix this: make it work, make it right, make it fast
+        //     - consider using promises success | fail
+        //
+
+        if(!this.addTile(this.grid)) {
+           this.emit('end', { moves: this._grid.length });
+        } else {
+            this.emit('newTile', this.grid);
+            success();
+        }
+        return this;
     }
 
     left() {
-        this.moveLeft(this.grid);
-        this.emitMove('left');
+
+        //
+        //  TODO: Fix this: make it work, make it right, make it fast
+        //      - consider using promises success | fail
+        //
+
+        var g = this.moveLeft(this.grid);
+        this.grid = (g) ? g : this.grid;
+        this.add(x => this.emitMove('left'));
+        return this;
     }
 
     right() {
-        this.moveRight(this.grid);
-        this.emitMove('right');
+
+        //
+        //  TODO: Fix this: make it work, make it right, make it fast
+        //      - consider using promises success | fail
+        //
+
+        var g = this.moveRight(this.grid);
+        this.grid = (g) ? g : this.grid;
+        this.add(x => this.emitMove('right'));
+        return this;
     }
 
     up() {
-        this.moveUp(this.grid);
-        this.emitMove('up');
+
+        //
+        //  TODO: Fix this: make it work, make it right, make it fast
+        //      - consider using promises success | fail
+        //
+
+        var g = this.moveUp(this.grid);
+        this.grid = (g) ? g : this.grid;
+        this.add(x => this.emitMove('up'));
+        return this;
     }
 
     down() {
-        this.moveDown(this.grid);
-        this.emitMove('down');
+
+        //
+        //  TODO: Fix this: make it work, make it right, make it fast
+        //      - consider using promises success | fail
+        //
+
+        var g = this.moveDown(this.grid);
+        this.grid = (g) ? g : this.grid;
+        this.add(x => this.emitMove('down'));
+        return this;
     }
 
 }
 
-Game.prototype.addTile = generateAddHandler(0.5, Game.multiple);
-Game.prototype.moveLeft = generateHandler('left');
-Game.prototype.moveRight = generateHandler('right');
-Game.prototype.moveUp = generateHandler('up');
-Game.prototype.moveDown = generateHandler('down');
+Game.prototype.addTile = createAddHandler(0.5, Game.multiple);
+Game.prototype.moveLeft = createHandler('left');
+Game.prototype.moveRight = createHandler('right');
+Game.prototype.moveUp = createHandler('up');
+Game.prototype.moveDown = createHandler('down');
 
 module.exports = Game;

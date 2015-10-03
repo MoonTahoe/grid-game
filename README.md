@@ -8,30 +8,28 @@ These are exercise files for ES6/Functional programming courses.
 
 ```javascript
 
-   import Game from 'grid-game'
-   
-   const gridSize = 3;
-   const multiple = 3;
-   
-   var niceGame = new Game(gridSize, multiple);
-   
-   niceGame.on('start', grid => console.log(grid));
-   niceGame.on('move', grid => console.log(grid));
-   niceGame.on('error', error => {
-       console.log("Error: " + error);
-       clearInterval(upInterval);
-   });
-   
-   var upInterval = setInterval(() => niceGame.up(), 1000);
+      import Game from './lib/index'
+      
+      const gridSize = 3;
+      const multiple = 3;
+      
+      var funGame = new Game(gridSize, multiple);
+      
+      funGame.on('start', grid => console.log(grid));
+      funGame.on('move', grid => console.log(grid));
+      funGame.on('error', error => {
+          console.log("Error: " + error);
+          clearInterval(upInterval);
+      });
+      
+      var upInterval = setInterval(() => funGame.up(), 1000);
    
 ```
 
-### Remaining
+### Under Construction
 
-* generateAddHandler
-* generateBoard
-* Tests for the Game Object
-* Sample Working Game
-* Travis CI Delivery pipeline for publishing
-* Finish off Readme
-* publish
+1. Refactor Game Object, promises, better code
+2. Write Tests for Game Object
+3. Remove Sample and npm run configuration for sample
+4. Finalize Readme.md 
+5. Fix issue caused by __npm run compile__ on node v4.0 __**Segmentation fault: 11**__

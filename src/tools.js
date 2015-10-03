@@ -4,8 +4,8 @@ var tools = {
         return (Math.random() >= rate) ? multiple : multiple * 2;
     },
 
-    createMatrix(rows = 4, cols = 4) {
-        return Array.apply(null, Array(rows)).map(x => Array.apply(null, Array(cols)).map(y => 0));
+    createMatrix(gridSize = [4, 4]) {
+        return Array.apply(null, Array(gridSize[0])).map(x => Array.apply(null, Array(gridSize[1])).map(y => 0));
     },
 
     zeroFill(arr, end) {
@@ -14,6 +14,14 @@ var tools = {
 
     zeroRemove(row) {
         return row.filter(cell => cell);
+    },
+
+    getRandom(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    },
+
+    copy(arr) {
+        return arr.map(x=>x);
     },
 
     pluck(i, matrix) {
@@ -83,6 +91,19 @@ var tools = {
                 return 0;
             }
         }));
+    },
+
+    createAddHandler(rate = 0.5, multiple = 2, availableSeats = tools.availableSeats, copy = tools.copy, getRandom = tools.getRandom, createTile = tools.createTile) {
+        return function (matrix) {
+            var seat, seats = availableSeats(matrix), newMatrix = copy(matrix);
+            if (seats.length) {
+                seat = getRandom(seats).split(':');
+                newMatrix[seat[0]][seat[1]] = createTile(rate, multiple);
+                return newMatrix;
+            } else {
+                return false;
+            }
+        };
     },
 
     createHandler(direction = 'left', setCollapseFunction = tools.setCollapseFunction, rotateAndCollapse = tools.rotateAndCollapse) {

@@ -9,6 +9,7 @@
     "test": "./node_modules/.bin/jenkins-mocha --compilers js:mocha-babel test/lib/*.js",
     "posttest": "npm run compile",
     "prepublish": "npm run compile",
+    "presample": "npm run compile",
     "sample": "./node_modules/.bin/babel-node ./sample.js"
   },
   "repository": {

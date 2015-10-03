@@ -1,15 +1,19 @@
 import Game from './lib/index'
 
-const gridSize = 3;
+const gridSize = [3,3];
 const multiple = 3;
 
-var niceGame = new Game(gridSize, multiple);
+var funGame = new Game(gridSize, multiple);
 
-niceGame.on('start', grid => console.log(grid));
-niceGame.on('move', grid => console.log(grid));
-niceGame.on('error', error => {
-    console.log("Error: " + error);
+funGame.on('start', x => console.log(x.grid));
+funGame.on('move', x => console.log(x.grid));
+funGame.on('end', x => {
     clearInterval(upInterval);
+    console.log(`Game over after ${x.moves}`);
+});
+funGame.on('error', error => {
+    clearInterval(upInterval);
+    console.log("Error: " + error);
 });
 
-var upInterval = setInterval(() => niceGame.up(), 1000);
+var upInterval = setInterval(() => funGame.left(), 500);
