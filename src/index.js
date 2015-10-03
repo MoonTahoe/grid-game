@@ -43,7 +43,7 @@ class Game extends GameFunctions {
 
         // Checking Paramaters
         if (!Array.isArray(gridSize) || !gridSize.every(x=>typeof x === 'number')) {
-            throw new Error('Grid Size needs to be in array of integers [rows,cols]')
+            throw new Error('Grid Size needs to be in array of integers [rows,cols]');
         }
 
         if (typeof multiple !== 'number' || multiple < 2) {
