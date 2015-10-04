@@ -2,12 +2,12 @@ import tools from '../../src/tools';
 import chai from 'chai';
 import sinon from 'sinon';
 var { expect } = chai;
-var { zeroRemove, zeroFill, addNeighbors, collapseRow, collapseRight, collapseLeft } = tools;
+var { zeroFill, addNeighbors, collapseRow, collapseRight, collapseLeft } = tools;
 
 describe('Tools : collapsing', () => {
 
     describe('addNeighbors(row)', () => {
-        it('adds like numbers', () => expect(addNeighbors([2, 2, 4, 4], zeroDiff)).to.deep.equal([4, 8]));
+        it('adds like numbers', () => expect(addNeighbors([2, 2, 4, 4])).to.deep.equal([4, 8]));
         it('adds numbers at the beginning only', () => expect(addNeighbors([2, 2, 8, 0])).to.deep.equal([4, 8]));
         it('adds numbers to the end only', () => expect(addNeighbors([2, 8, 8, 2])).to.deep.equal([2, 16, 2]));
         it('adds numbers with 0s appropratly', () => expect(addNeighbors([0, 0, 2, 2])).to.deep.equal([4]));
