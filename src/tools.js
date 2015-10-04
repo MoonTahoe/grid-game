@@ -52,14 +52,6 @@ var tools = {
         return reverse(matrix.map((row, i, arr) => pluck(i, arr)));
     },
 
-    addItems(current, next) {
-        return (current === next) ? current * 2 : current;
-    },
-
-    zeroDiff(oldArray, newArray) {
-        return newArray.map((item, i, arr) => (oldArray[i - 1] === newArray[i - 1]) ? item : 0);
-    },
-
     collapseRow(row, zeroFill = tools.zeroFill, addNeighbors = tools.addNeighbors) {
         return zeroFill(addNeighbors(row), row.length);
     },
