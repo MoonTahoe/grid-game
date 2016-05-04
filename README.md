@@ -10,7 +10,7 @@ This first release of the grid-game module still has some issues.
 
       import Game from './lib/index'
       
-      const gridSize = 3;
+      const gridSize = [3,3];
       const multiple = 3;
       
       var funGame = new Game(gridSize, multiple);
